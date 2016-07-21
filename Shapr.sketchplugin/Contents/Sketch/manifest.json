@@ -1,0 +1,38 @@
+{
+	"name": "Shapr",
+	"description": "Create shape with the keyboard!",
+	"author": "Vincenzo Petito",
+	"email": "vincenzo.petito90@gmail.com",
+    "homepage": "",
+    "identifier": "com.vincenzopetito.shaper",
+	"version": 1.0,
+    "compatibleVersion": 3,
+    "commands": [
+        {
+            "name": "Rectangle",
+            "identifier": "createRect",
+            "shortcut": "cmd alt r",
+            "script": "createRect.cocoascript"
+        },
+		{
+            "name": "Circle",
+            "identifier": "createCircle",
+            "shortcut": "cmd alt o",
+            "script": "createCircle.cocoascript"
+        },
+		{
+            "name": "Text",
+            "identifier": "createText",
+            "shortcut": "cmd ctrl t",
+            "script": "createText.cocoascript"
+        }
+    ],
+    "menu": {
+        "title": "Shapr",
+        "items": [
+            "createRect",
+			"createCircle",
+			"createText"
+        ]
+    }
+}

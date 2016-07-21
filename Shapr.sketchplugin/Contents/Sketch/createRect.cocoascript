@@ -1,0 +1,59 @@
+var onRun = function(context) {
+    var doc = context.document
+
+    function showAlertWindow() {
+        var alertWindow = COSAlertWindow.new()
+
+        var imageFilePath = context.command.pluginBundle().url().URLByAppendingPathComponent("/Contents/Resources/icona-shaper.png").path();
+        var icon = NSImage.alloc().initByReferencingFile(imageFilePath);
+        alertWindow.setIcon(icon);
+
+        alertWindow.setMessageText('Create new rectangle')
+
+        alertWindow.addTextLabelWithValue('Width')
+        alertWindow.addTextFieldWithValue('100')
+        
+        alertWindow.addTextLabelWithValue('Height')
+        alertWindow.addTextFieldWithValue('100')
+
+        alertWindow.addTextLabelWithValue('X')
+        alertWindow.addTextFieldWithValue('0')
+
+        alertWindow.addTextLabelWithValue('Y')
+        alertWindow.addTextFieldWithValue('0')
+
+        alertWindow.addTextLabelWithValue('Background')
+        alertWindow.addTextFieldWithValue('cccccc')
+
+        alertWindow.addButtonWithTitle('OK')
+        alertWindow.addButtonWithTitle('Cancel')
+
+        if (alertWindow.runModal() == -NSModalResponseStop) {
+
+            var width = alertWindow.viewAtIndex(1).stringValue()
+            var height = alertWindow.viewAtIndex(3).stringValue()
+            var x = alertWindow.viewAtIndex(5).stringValue()
+            var y = alertWindow.viewAtIndex(7).stringValue()
+            var bgColor = alertWindow.viewAtIndex(9).stringValue()
+
+            createRect(x, y, width, height, bgColor);
+
+        } else {
+            return null
+        }
+    }
+
+    function createRect(x, y, width, height, bgColor) {
+
+        var newRect = MSRectangleShape.new();
+        newRect.frame = MSRect.rectWithRect(NSMakeRect(x, y, width, height));
+        var rectGroup = MSShapeGroup.shapeWithPath(newRect);
+
+        var fillRect = rectGroup.style().addStylePartOfType(0);
+        fillRect.color = MSColor.colorWithSVGString("#" + bgColor);
+
+        doc.currentPage().currentArtboard().addLayers([rectGroup]);
+    }
+
+    showAlertWindow();
+};

@@ -1,0 +1,55 @@
+var onRun = function(context) {
+    var doc = context.document
+
+    function showAlertWindow() {
+        var alertWindow = COSAlertWindow.new()
+
+        var imageFilePath = context.command.pluginBundle().url().URLByAppendingPathComponent("/Contents/Resources/icona-shaper.png").path();
+        var icon = NSImage.alloc().initByReferencingFile(imageFilePath);
+        alertWindow.setIcon(icon);
+
+        alertWindow.setMessageText('Create new circle')
+
+        alertWindow.addTextLabelWithValue('Diameter')
+        alertWindow.addTextFieldWithValue('100')
+
+        alertWindow.addTextLabelWithValue('X')
+        alertWindow.addTextFieldWithValue('0')
+
+        alertWindow.addTextLabelWithValue('Y')
+        alertWindow.addTextFieldWithValue('0')
+
+        alertWindow.addTextLabelWithValue('Background')
+        alertWindow.addTextFieldWithValue('cccccc')
+
+        alertWindow.addButtonWithTitle('OK')
+        alertWindow.addButtonWithTitle('Cancel')
+
+        if (alertWindow.runModal() == -NSModalResponseStop) {
+
+            var size = alertWindow.viewAtIndex(1).stringValue()
+            var x = alertWindow.viewAtIndex(3).stringValue()
+            var y = alertWindow.viewAtIndex(5).stringValue()
+            var bgColor = alertWindow.viewAtIndex(7).stringValue()
+
+            createCircle(x, y, size, bgColor);
+
+        } else {
+            return null
+        }
+    }
+
+    function createCircle(x, y, size, bgColor) {
+
+        var newCircle = MSOvalShape.alloc().init();
+        newCircle.frame = MSRect.rectWithRect(NSMakeRect(x, y, size, size));
+        var circleGroup = MSShapeGroup.shapeWithPath(newCircle);
+
+        var fillCircle = circleGroup.style().addStylePartOfType(0);
+        fillCircle.color = MSColor.colorWithSVGString("#" + bgColor);
+
+        doc.currentPage().currentArtboard().addLayers([circleGroup]);
+    }
+
+    showAlertWindow();
+};

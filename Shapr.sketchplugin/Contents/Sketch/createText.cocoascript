@@ -1,0 +1,41 @@
+var onRun = function(context) {
+    var doc = context.document
+
+    function showAlertWindow() {
+        var alertWindow = COSAlertWindow.new()
+
+        var imageFilePath = context.command.pluginBundle().url().URLByAppendingPathComponent("/Contents/Resources/icona-shaper.png").path();
+        var icon = NSImage.alloc().initByReferencingFile(imageFilePath);
+        alertWindow.setIcon(icon);
+
+        alertWindow.setMessageText('Create text')
+
+        alertWindow.addTextLabelWithValue('Put your text here')
+        alertWindow.addTextFieldWithValue('Lorem ipsum dolor')
+
+        alertWindow.addButtonWithTitle('OK')
+        alertWindow.addButtonWithTitle('Cancel')
+
+        if (alertWindow.runModal() == -NSModalResponseStop) {
+
+            var textString = alertWindow.viewAtIndex(1).stringValue()
+
+            createText(textString);
+
+        } else {
+            return null
+        }
+    }
+
+    function createText(textString) {
+        var testoh = MSTextLayer.new();
+
+        testoh.setStringValue(textString)
+        testoh.name = textString
+        testoh.adjustFrameToFit()
+
+        context.document.currentPage().currentArtboard().addLayers([testoh]);
+    }
+
+    showAlertWindow();
+};
