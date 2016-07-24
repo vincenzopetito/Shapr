@@ -4,9 +4,8 @@ var onRun = function(context) {
     function showAlertWindow() {
         var alertWindow = COSAlertWindow.new()
 
-        var imageFilePath = context.command.pluginBundle().url().URLByAppendingPathComponent("/Contents/Resources/icona-shaper.png").path();
-        var icon = NSImage.alloc().initByReferencingFile(imageFilePath);
-        alertWindow.setIcon(icon);
+        // Set the icon fot the view
+        alertWindow.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icona-shaper.png").path()));
 
         alertWindow.setMessageText('Create text')
 
@@ -16,7 +15,7 @@ var onRun = function(context) {
         alertWindow.addButtonWithTitle('OK')
         alertWindow.addButtonWithTitle('Cancel')
 
-        if (alertWindow.runModal() == -NSModalResponseStop) {
+        if (alertWindow.runModal() == "1000") {
 
             var textString = alertWindow.viewAtIndex(1).stringValue()
 
@@ -28,13 +27,22 @@ var onRun = function(context) {
     }
 
     function createText(textString) {
-        var testoh = MSTextLayer.new();
+        var textLayer = MSTextLayer.new();
 
-        testoh.setStringValue(textString)
-        testoh.name = textString
-        testoh.adjustFrameToFit()
+        textLayer.setStringValue(textString)
+        textLayer.name = textString
+        textLayer.adjustFrameToFit()
 
-        context.document.currentPage().currentArtboard().addLayers([testoh]);
+        //If there's no artboards create the rect in the page
+        if (doc.currentPage().artboards().count() < 1) {
+            doc.currentPage().addLayers([textLayer]);
+        } else {
+            doc.currentPage().currentArtboard().addLayers([textLayer]);
+        }
+
+        //Deselect all layers and select the new created
+        doc.currentPage().deselectAllLayers();
+        textLayer.setIsSelected(true);
     }
 
     showAlertWindow();

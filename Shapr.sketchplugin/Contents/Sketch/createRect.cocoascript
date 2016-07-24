@@ -1,58 +1,110 @@
+
+
 var onRun = function(context) {
-    var doc = context.document
+
+    //Import utils.js
+    @import "utils.js"
 
     function showAlertWindow() {
         var alertWindow = COSAlertWindow.new()
 
-        var imageFilePath = context.command.pluginBundle().url().URLByAppendingPathComponent("/Contents/Resources/icona-shaper.png").path();
-        var icon = NSImage.alloc().initByReferencingFile(imageFilePath);
-        alertWindow.setIcon(icon);
+        // Set the icon fot the view
+        alertWindow.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icona-shaper.png").path()));
 
         alertWindow.setMessageText('Create new rectangle')
 
-        alertWindow.addTextLabelWithValue('Width')
-        alertWindow.addTextFieldWithValue('100')
-        
-        alertWindow.addTextLabelWithValue('Height')
-        alertWindow.addTextFieldWithValue('100')
+        // Create the main view that contain the filed
+        var mainView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 360, 180));
+        alertWindow.addAccessoryView(mainView);
 
-        alertWindow.addTextLabelWithValue('X')
-        alertWindow.addTextFieldWithValue('0')
+        // Add labels
+        var widthLabel = createLabel(NSMakeRect(0, 160, 140, 20), "Width");
+        mainView.addSubview(widthLabel);
 
-        alertWindow.addTextLabelWithValue('Y')
-        alertWindow.addTextFieldWithValue('0')
+        var heightLabel = createLabel(NSMakeRect(160, 160, 140, 20), "Height");
+        mainView.addSubview(heightLabel);
 
-        alertWindow.addTextLabelWithValue('Background')
-        alertWindow.addTextFieldWithValue('cccccc')
+        var xLabel = createLabel(NSMakeRect(0, 100, 140, 20), "X");
+        mainView.addSubview(xLabel);
 
+        var yLabel = createLabel(NSMakeRect(160, 100, 140, 20), "Y");
+        mainView.addSubview(yLabel);
+
+        var radiusLabel = createLabel(NSMakeRect(0, 40, 140, 20), "Radius");
+        mainView.addSubview(radiusLabel);
+
+        var bgLabel = createLabel(NSMakeRect(160, 40, 140, 20), "Background");
+        mainView.addSubview(bgLabel);
+
+        // Add inputs
+        var widthInput = NSTextField.alloc().initWithFrame(NSMakeRect(0, 140, 140, 20));
+        widthInput.setStringValue("100");
+        mainView.addSubview(widthInput);
+
+        var heightInput = NSTextField.alloc().initWithFrame(NSMakeRect(160, 140, 140, 20));
+        heightInput.setStringValue("100");
+        mainView.addSubview(heightInput);
+
+        var xInput = NSTextField.alloc().initWithFrame(NSMakeRect(0, 80, 140, 20));
+        xInput.setStringValue("0");
+        mainView.addSubview(xInput);
+
+        var yInput = NSTextField.alloc().initWithFrame(NSMakeRect(160, 80, 140, 20));
+        yInput.setStringValue("0");
+        mainView.addSubview(yInput);
+
+        var radiusInput = NSTextField.alloc().initWithFrame(NSMakeRect(0, 20, 140, 20));
+        radiusInput.setStringValue("0");
+        mainView.addSubview(radiusInput);
+
+        var bgInput = NSTextField.alloc().initWithFrame(NSMakeRect(160, 20, 140, 20));
+        bgInput.setStringValue("cccccc");
+        mainView.addSubview(bgInput);
+
+        // Add buttons to confirm or cancel
         alertWindow.addButtonWithTitle('OK')
         alertWindow.addButtonWithTitle('Cancel')
 
-        if (alertWindow.runModal() == -NSModalResponseStop) {
+        //If "OK" is clicked
+        if (alertWindow.runModal() == "1000") {
 
-            var width = alertWindow.viewAtIndex(1).stringValue()
-            var height = alertWindow.viewAtIndex(3).stringValue()
-            var x = alertWindow.viewAtIndex(5).stringValue()
-            var y = alertWindow.viewAtIndex(7).stringValue()
-            var bgColor = alertWindow.viewAtIndex(9).stringValue()
+            // Create variable with user's input
+            var width = widthInput.stringValue();
+            var height = heightInput.stringValue();
+            var x = xInput.stringValue();
+            var y = yInput.stringValue();
+            var radius = radiusInput.stringValue();
+            var bgColor = bgInput.stringValue();
 
-            createRect(x, y, width, height, bgColor);
+            //Call the createRect function passing the user's input
+            createRect(x, y, width, height, bgColor, radius);
 
         } else {
             return null
         }
     }
 
-    function createRect(x, y, width, height, bgColor) {
+    function createRect(x, y, width, height, bgColor, radius) {
 
         var newRect = MSRectangleShape.new();
         newRect.frame = MSRect.rectWithRect(NSMakeRect(x, y, width, height));
         var rectGroup = MSShapeGroup.shapeWithPath(newRect);
 
+        newRect.cornerRadiusFloat = radius;
+
         var fillRect = rectGroup.style().addStylePartOfType(0);
         fillRect.color = MSColor.colorWithSVGString("#" + bgColor);
 
-        doc.currentPage().currentArtboard().addLayers([rectGroup]);
+        //If there's no artboards create the rect in the page
+        if (doc.currentPage().artboards().count() < 1) {
+            doc.currentPage().addLayers([rectGroup]);
+        } else {
+            doc.currentPage().currentArtboard().addLayers([rectGroup]);
+        }
+
+        //Deselect all layers and select the new created
+        doc.currentPage().deselectAllLayers();
+        rectGroup.setIsSelected(true);
     }
 
     showAlertWindow();

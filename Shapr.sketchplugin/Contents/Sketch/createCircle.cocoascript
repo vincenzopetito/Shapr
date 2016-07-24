@@ -1,37 +1,64 @@
 var onRun = function(context) {
-    var doc = context.document
+
+    //Import utils.js
+    @import "utils.js"
 
     function showAlertWindow() {
         var alertWindow = COSAlertWindow.new()
 
-        var imageFilePath = context.command.pluginBundle().url().URLByAppendingPathComponent("/Contents/Resources/icona-shaper.png").path();
-        var icon = NSImage.alloc().initByReferencingFile(imageFilePath);
-        alertWindow.setIcon(icon);
+        // Set the icon fot the view
+        alertWindow.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icona-shaper.png").path()));
 
         alertWindow.setMessageText('Create new circle')
 
-        alertWindow.addTextLabelWithValue('Diameter')
-        alertWindow.addTextFieldWithValue('100')
+        // Create the main view that contain the filed
+        var mainView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 360, 120));
+        alertWindow.addAccessoryView(mainView);
 
-        alertWindow.addTextLabelWithValue('X')
-        alertWindow.addTextFieldWithValue('0')
+        // Add labels
+        var diameterLabel = createLabel(NSMakeRect(0, 100, 140, 20), "Diameter");
+        mainView.addSubview(diameterLabel);
 
-        alertWindow.addTextLabelWithValue('Y')
-        alertWindow.addTextFieldWithValue('0')
+        var bgLabel = createLabel(NSMakeRect(160, 100, 140, 20), "Background");
+        mainView.addSubview(bgLabel);
 
-        alertWindow.addTextLabelWithValue('Background')
-        alertWindow.addTextFieldWithValue('cccccc')
+        var xLabel = createLabel(NSMakeRect(0, 40, 140, 20), "X");
+        mainView.addSubview(xLabel);
 
+        var yLabel = createLabel(NSMakeRect(160, 40, 140, 20), "Y");
+        mainView.addSubview(yLabel);
+
+        // Add inputs
+        var diameterInput = NSTextField.alloc().initWithFrame(NSMakeRect(0, 80, 140, 20));
+        diameterInput.setStringValue("100");
+        mainView.addSubview(diameterInput);
+
+        var bgInput = NSTextField.alloc().initWithFrame(NSMakeRect(160, 80, 140, 20));
+        bgInput.setStringValue("cccccc");
+        mainView.addSubview(bgInput);
+
+        var xInput = NSTextField.alloc().initWithFrame(NSMakeRect(0, 20, 140, 20));
+        xInput.setStringValue("0");
+        mainView.addSubview(xInput);
+
+        var yInput = NSTextField.alloc().initWithFrame(NSMakeRect(160, 20, 140, 20));
+        yInput.setStringValue("0");
+        mainView.addSubview(yInput);
+
+        // Add buttons to confirm or cancel
         alertWindow.addButtonWithTitle('OK')
         alertWindow.addButtonWithTitle('Cancel')
 
-        if (alertWindow.runModal() == -NSModalResponseStop) {
+        //If "OK" is clicked
+        if (alertWindow.runModal() == "1000") {
 
-            var size = alertWindow.viewAtIndex(1).stringValue()
-            var x = alertWindow.viewAtIndex(3).stringValue()
-            var y = alertWindow.viewAtIndex(5).stringValue()
-            var bgColor = alertWindow.viewAtIndex(7).stringValue()
+            // Create variable with user's input
+            var size = diameterInput.stringValue()
+            var x = xInput.stringValue()
+            var y = yInput.stringValue()
+            var bgColor = bgInput.stringValue()
 
+            //Call the createRect function passing the user's input
             createCircle(x, y, size, bgColor);
 
         } else {
@@ -48,7 +75,16 @@ var onRun = function(context) {
         var fillCircle = circleGroup.style().addStylePartOfType(0);
         fillCircle.color = MSColor.colorWithSVGString("#" + bgColor);
 
-        doc.currentPage().currentArtboard().addLayers([circleGroup]);
+        //If there's no artboards create the rect in the page
+        if (doc.currentPage().artboards().count() < 1) {
+            doc.currentPage().addLayers([circleGroup]);
+        } else {
+            doc.currentPage().currentArtboard().addLayers([circleGroup]);
+        }
+
+        //Deselect all layers and select the new created
+        doc.currentPage().deselectAllLayers();
+        circleGroup.setIsSelected(true);
     }
 
     showAlertWindow();
