@@ -6,6 +6,18 @@ Every designer loves how fast is working with Sketch to create UI. And if you, l
 
 From now, forget this workflow. By pressing **Cmd + Alt + R** it will open a modal to create a **rectangle** with the properties specified; same thing with the circle by pressing **Cmd + Alt + O** and for the text pressing **Cmd + Ctrl + T**.
 
+## How it works
+As described before, Shaper allow to create **rectangles**, **circles** and **texts**. In order to do that use this shortcut:
+* **Cmd + Alt + R**: to create a rectangle
+* **Cmd + Alt + O**: to create a circle
+* **Cmd + Ctrl + T**: to create a text
+
+## Install
+Shaper is available for Sketch 3 and up  
+  1. [Download the ZIP] (https://github.com/vincenzopetito/Shapr/archive/master.zip)  
+  2. Extract the file and open the `Shaper.sketchplugin` file   
+  3. Restart Sketch (not mandatory but suggested)  
+
 ## License
 Shapr is released under the MIT License
 
