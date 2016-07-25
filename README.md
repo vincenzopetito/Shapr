@@ -10,5 +10,6 @@ From now, forget this workflow. By pressing **Cmd + Alt + R** it will open a mod
 Shapr is released under the MIT License
 
 ## About
-Shapr is created by Vincenzo Petito
-**Website** http://vincenzopetito.altervista.org
+Shapr is created by Vincenzo Petito  
+* _Website_ http://vincenzopetito.altervista.org  
+* _Dribbble_ http://www.dribbble.com/vincenzo_petito
