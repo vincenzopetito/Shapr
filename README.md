@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="http:www.vincenzopetito.altervista.org/Shapr/shapr-logo@2x.png" style="width: 200px;" />  
+  <img src="http://www.vincenzopetito.altervista.org/Shapr/shapr-logo@2x.png" style="width: 200px;" />  
   A Sketch plugin that allow you to create every shape or text by using only the keyboard.
 </p>
 
