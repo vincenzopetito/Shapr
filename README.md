@@ -1,6 +1,6 @@
-<img src="http://vincenzopetito.altervista.org/Shapr/shapr-logo@2x.png" width="250" />  
+<p align="center"><img src="http://vincenzopetito.altervista.org/Shapr/shapr-logo@2x.png" width="250" />  </p>
   
-A Sketch plugin that allow you to create every shape or text by using only the keyboard.
+<p align="center">A Sketch plugin that allow you to create every shape or text by using only the keyboard.</p>
 
 <img src="http://vincenzopetito.altervista.org/Shapr/cover-shapr.png" />  
 
