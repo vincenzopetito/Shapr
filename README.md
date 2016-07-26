@@ -19,7 +19,7 @@ Shaper is available for Sketch 3 and up
   3. Restart Sketch (not mandatory but suggested)  
 
 ## License
-Shapr is released under the [MIT License] (https://github.com/vincenzopetito/Shapr/License.md)
+Shapr is released under the [MIT License] (https://github.com/vincenzopetito/Shapr/blob/master/License.md)
 
 ## About
 Shapr is created by Vincenzo Petito  
