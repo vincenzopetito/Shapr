@@ -1,7 +1,5 @@
-<p align="center">
-  <img src="http://www.vincenzopetito.altervista.org/Shapr/shapr-logo@2x.png" style="width: 200px;" />  
-  A Sketch plugin that allow you to create every shape or text by using only the keyboard.
-</p>
+<img src="http://www.vincenzopetito.altervista.org/Shapr/shapr-logo@2x.png" width="200" />  
+A Sketch plugin that allow you to create every shape or text by using only the keyboard.
 
 ## What is Shapr
 Every designer loves how fast is working with Sketch to create UI. And if you, like me, love working using almost only the keyboard (you have memorized all the shortcut available, and maybe created some custom), you've notice that there's **no way to create a shape** or a label without moving the hand from the keyboard to the mouse and back, than press _Alt + Tab_ to highlight the X field and start fill the other properties.
