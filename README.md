@@ -15,6 +15,11 @@ As described before, Shaper allow to create **rectangles**, **circles** and **te
 * **Cmd + Alt + O**: to create a circle
 * **Cmd + Ctrl + T**: to create a text
 
+## Roardmap
+* Custom UI
+* Settings fot text (size, color and positioning)
+* Everything you suggest!
+
 ## Install
 Shaper is available for Sketch 3 and up  
   1. [Download the ZIP] (https://github.com/vincenzopetito/Shapr/archive/master.zip)  
@@ -28,3 +33,6 @@ Shapr is released under the [MIT License] (https://github.com/vincenzopetito/Sha
 Shapr is created by Vincenzo Petito  
 * _Website_ http://vincenzopetito.altervista.org  
 * _Dribbble_ http://www.dribbble.com/vincenzo_petito
+
+## Suggest feature
+This plugin is made by a designer for designers, so if you want to requet a feature text me at **vincenzo.petito90@gmail.com**
