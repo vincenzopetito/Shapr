@@ -15,7 +15,7 @@ As described before, Shaper allow to create **rectangles**, **circles** and **te
 * **Cmd + Alt + O**: to create a circle
 * **Cmd + Ctrl + T**: to create a text
 
-## Roardmap
+## Roadmap
 * Custom UI
 * Settings fot text (size, color and positioning)
 * Everything you suggest!
