@@ -34,6 +34,7 @@ var onRun = function(context) {
         alertWindow.addButtonWithTitle('OK')
         alertWindow.addButtonWithTitle('Cancel')
 
+        // Allow tab to switch between inputs
         alertWindow.alert().window().setInitialFirstResponder(alertWindow.viewAtIndex(1));
         alertWindow.viewAtIndex(1).setNextKeyView(sizeInput)
         sizeInput.setNextKeyView(colorInput)

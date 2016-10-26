@@ -49,7 +49,7 @@ var onRun = function(context) {
         alertWindow.addButtonWithTitle('OK')
         alertWindow.addButtonWithTitle('Cancel')
 
-        // Array of the input
+        // Allow tab to switch between inputs
         alertWindow.alert().window().setInitialFirstResponder(diameterInput);
         diameterInput.setNextKeyView(bgInput)
         bgInput.setNextKeyView(xInput)
