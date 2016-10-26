@@ -1,6 +1,9 @@
 var onRun = function(context) {
     var doc = context.document
 
+    //Import utils.js
+    @import "utils.js"
+
     function showAlertWindow() {
         var alertWindow = COSAlertWindow.new()
 
@@ -9,28 +12,53 @@ var onRun = function(context) {
 
         alertWindow.setMessageText('Create text')
 
-        alertWindow.addTextLabelWithValue('Your text string')
+        alertWindow.addTextLabelWithValue('Put your text here')
         alertWindow.addTextFieldWithValue('Lorem ipsum dolor')
+
+        // Create the main view that contain the filed
+        var mainView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 360, 60));
+        alertWindow.addAccessoryView(mainView);
+
+        var sizeLabel = createLabel(NSMakeRect(0, 30, 140, 20), "Font Size");
+        mainView.addSubview(sizeLabel);
+        var sizeInput = NSTextField.alloc().initWithFrame(NSMakeRect(0, 10, 140, 20));
+        sizeInput.setStringValue("16");
+        mainView.addSubview(sizeInput);
+
+        var colorLabel = createLabel(NSMakeRect(160, 30, 140, 20), "Background");
+        mainView.addSubview(colorLabel);
+        var colorInput = NSTextField.alloc().initWithFrame(NSMakeRect(160, 10, 140, 20));
+        colorInput.setStringValue("cccccc");
+        mainView.addSubview(colorInput);
 
         alertWindow.addButtonWithTitle('OK')
         alertWindow.addButtonWithTitle('Cancel')
 
+        alertWindow.alert().window().setInitialFirstResponder(alertWindow.viewAtIndex(1));
+        alertWindow.viewAtIndex(1).setNextKeyView(sizeInput)
+        sizeInput.setNextKeyView(colorInput)
+        colorInput.setNextKeyView(alertWindow.viewAtIndex(1))
+
         if (alertWindow.runModal() == "1000") {
 
             var textString = alertWindow.viewAtIndex(1).stringValue()
+            var textSize = sizeInput.stringValue()
+            var textColor = colorInput.stringValue()
 
-            createText(textString);
+            createText(textString, textSize, textColor);
 
         } else {
             return null
         }
     }
 
-    function createText(textString) {
+    function createText(textString, textSize, textColor) {
         var textLayer = MSTextLayer.new();
 
         textLayer.setStringValue(textString)
-        textLayer.name = textString
+        textLayer.setName(textString)
+        textLayer.setFontSize(textSize)
+        textLayer.textColor = MSColor.colorWithSVGString("#" + textColor)
         textLayer.adjustFrameToFit()
 
         //If there's no artboards create the rect in the page

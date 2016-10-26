@@ -49,6 +49,13 @@ var onRun = function(context) {
         alertWindow.addButtonWithTitle('OK')
         alertWindow.addButtonWithTitle('Cancel')
 
+        // Array of the input
+        alertWindow.alert().window().setInitialFirstResponder(diameterInput);
+        diameterInput.setNextKeyView(bgInput)
+        bgInput.setNextKeyView(xInput)
+        xInput.setNextKeyView(yInput)
+        yInput.setNextKeyView(diameterInput)
+
         //If "OK" is clicked
         if (alertWindow.runModal() == "1000") {
 
