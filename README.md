@@ -3,12 +3,12 @@
 ## What is Shapr
 Every designer loves how fast is working with Sketch to create UI. And if you, like me, love working using almost only the keyboard (you have memorized all the shortcut available, and maybe created some custom), you've notice that there's **no way to create a shape** without moving the hand from the keyboard to the mouse and back, than press _Alt + Tab_ to highlight the X field and start fill the other properties.
 
-From now, forget this workflow. By pressing **Cmd + Alt + R** it will open a modal to create a **rectangle** with the properties specified; same thing with the circle by pressing **Cmd + Alt + O**.
+From now, forget this workflow. By pressing **Cmd + Alt + R** it will open a modal to create a **rectangle** with the properties specified; same thing with the circle by pressing **Cmd + Shift + O**.
 
 ## How it works
 As described before, Shaper allow to create **rectangles** and **circles**. In order to do that use this shortcut:
 * **Cmd + Alt + R**: to create a rectangle
-* **Cmd + Alt + O**: to create a circle
+* **Cmd + Shift + O**: to create a circle
 
 ## Roadmap
 * Custom UI
