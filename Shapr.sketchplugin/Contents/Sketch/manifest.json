@@ -18,7 +18,7 @@
 		{
             "name": "Circle",
             "identifier": "createCircle",
-            "shortcut": "cmd alt o",
+            "shortcut": "cmd ctrl o",
             "script": "createCircle.js"
         }
     ],
