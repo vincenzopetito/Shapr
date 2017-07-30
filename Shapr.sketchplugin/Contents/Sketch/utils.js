@@ -1,4 +1,9 @@
-var doc = context.document
+// Variables
+var sketch = context.api()
+var document = sketch.selectedDocument;
+var page = document.selectedPage;
+var selection = document.selectedLayers;
+var artboard = page.artboards;
 
 // Function to create the label
 function createLabel(frame, value) {
