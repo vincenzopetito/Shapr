@@ -7,7 +7,7 @@ var onRun = function(context) {
         var alertWindow = COSAlertWindow.new()
 
         // Set the icon fot the view
-        //alertWindow.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("create-rectangle.png").path()));
+        alertWindow.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("create-rectangle.png").path()));
 
         alertWindow.setMessageText('Create new rectangle')
 
